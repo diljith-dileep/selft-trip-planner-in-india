@@ -165,6 +165,7 @@
   html[data-theme="dark"] .theme-toggle .moon { display: none; }
 
   .mobile-trip-btn { display: none; }
+  body.planner-mode .mobile-trip-btn { display: none !important; }
   .mobile-trip-btn .count {
     display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem;
     padding: 0 0.32rem; border-radius: 999px; background: var(--accent);
@@ -401,6 +402,287 @@
 
   .trip-footnote { margin: 12px 2px 0; font-size: 0.71rem; color: var(--muted); }
 
+  /* View switch */
+  .view-switch-wrap {
+    max-width: 1320px; margin: 0 auto; padding: 14px 24px 0;
+  }
+  .view-switch {
+    display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px;
+    background: var(--surface-2); border: 1px solid var(--border);
+  }
+  .view-tab {
+    border: 0; background: transparent; color: var(--text-soft);
+    font-weight: 700; font-size: 0.86rem; padding: 0.46rem 0.98rem;
+    border-radius: 999px; transition: background 0.18s ease, color 0.18s ease;
+  }
+  .view-tab:hover { color: var(--text); }
+  .view-tab.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+
+  /* Day planner */
+  .planner-view {
+    max-width: 1320px; margin: 0 auto; padding: 34px 24px 58px;
+  }
+  .planner-hero {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+  .planner-hero-copy { flex: 1 1 480px; min-width: 0; }
+  .planner-hero h1 {
+    margin: 0.4rem 0 0.65rem; font-family: var(--font-serif);
+    font-size: clamp(1.95rem, 4.4vw, 2.85rem); line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .planner-hero .hero-sub { margin-bottom: 12px; max-width: 66ch; }
+  .planner-stats {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin: 0 12px 0 0; padding: 0.3rem 0.7rem; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-size: 0.78rem; font-weight: 800;
+  }
+  .planner-save-note { display: inline; margin: 0; font-size: 0.76rem; color: var(--muted); }
+  .planner-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .planner-actions .btn svg { width: 16px; height: 16px; }
+
+  .planner-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) 372px;
+    gap: 26px; align-items: start;
+  }
+  .days-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+  .day-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 18px; box-shadow: var(--shadow);
+    scroll-margin-top: 84px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .day-card.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow);
+  }
+
+  .day-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+  }
+  .day-head-left { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; }
+  .day-badge {
+    flex: 0 0 auto; padding: 0.28rem 0.6rem; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .day-title-input {
+    flex: 1 1 auto; min-width: 0; width: 100%;
+    border: 1px solid transparent; border-radius: 9px;
+    background: transparent; color: var(--text);
+    font-family: var(--font-serif); font-size: 1.18rem; font-weight: 700;
+    padding: 0.28rem 0.4rem;
+    transition: border-color 0.18s ease, background 0.18s ease;
+  }
+  .day-title-input::placeholder { color: var(--muted); font-weight: 400; font-style: italic; }
+  .day-title-input:hover { border-color: var(--border); }
+  .day-title-input:focus {
+    outline: none; background: var(--surface); border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .day-head-actions { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+  .day-map-btn { gap: 5px; padding: 0.38rem 0.7rem; font-size: 0.76rem; }
+  .day-map-btn svg { width: 14px; height: 14px; }
+  .day-map-btn.active { background: var(--accent-soft); color: var(--accent-ink); border-color: transparent; }
+
+  .day-fields {
+    display: grid; grid-template-columns: 170px minmax(0, 1fr);
+    gap: 10px; margin: 14px 0 12px;
+  }
+  .field { display: block; }
+  .field > span {
+    display: block; margin-bottom: 4px; font-size: 0.64rem;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); font-weight: 800;
+  }
+  .field input, .field textarea {
+    width: 100%; border: 1px solid var(--border-strong); border-radius: 10px;
+    background: var(--surface); color: var(--text); padding: 0.5rem 0.62rem;
+    font-size: 0.84rem; resize: vertical; min-height: 38px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .field textarea { min-height: 58px; line-height: 1.45; }
+  .field input:focus, .field textarea:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .place-search { position: relative; margin-bottom: 12px; }
+  .place-search > svg {
+    position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+    width: 17px; height: 17px; color: var(--muted); pointer-events: none;
+  }
+  .place-search input {
+    width: 100%; padding: 0.68rem 1rem 0.68rem 2.45rem;
+    border-radius: 12px; border: 1px solid var(--border-strong);
+    background: var(--surface); color: var(--text); font-size: 0.87rem;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .place-search input::placeholder { color: var(--muted); }
+  .place-search input:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .suggestions {
+    position: absolute; left: 0; right: 0; top: calc(100% + 5px); z-index: 30;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; box-shadow: var(--shadow-lg);
+    padding: 5px; max-height: 264px; overflow-y: auto;
+  }
+  .suggestion {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; border: 0;
+    background: transparent; color: var(--text); border-radius: 9px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .suggestion:hover, .suggestion.active { background: var(--surface-2); }
+  .suggestion-icon {
+    flex: 0 0 38px; width: 38px; height: 38px; border-radius: 10px;
+    display: grid; place-items: center; overflow: hidden;
+    background: linear-gradient(145deg, var(--ph-a, #e8c39e), var(--ph-b, #bf5b2d));
+  }
+  .suggestion-icon svg { width: 24px; height: 24px; opacity: 0.92; }
+  .suggestion-text { flex: 1 1 auto; min-width: 0; }
+  .suggestion-text strong { display: block; font-size: 0.84rem; font-weight: 700; line-height: 1.3; }
+  .suggestion-text small {
+    display: block; font-size: 0.7rem; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .suggestion-name { display: block; font-size: 0.85rem; font-weight: 700; }
+  .suggestion-address { display: block; font-size: 0.73rem; color: var(--muted); }
+  .suggestion-time {
+    display: inline-block; flex: 0 0 auto; margin: 0 0 0 auto;
+    font-size: 0.66rem; color: var(--accent-ink); font-weight: 700; white-space: nowrap;
+  }
+  .suggestion-empty { margin: 0; padding: 10px; font-size: 0.8rem; color: var(--muted); }
+
+  .day-places {
+    display: grid; gap: 8px; border-radius: 13px;
+    transition: background 0.16s ease, box-shadow 0.16s ease;
+  }
+  .day-places.is-empty {
+    padding: 14px; border: 1px dashed var(--border-strong);
+    color: var(--muted); font-size: 0.82rem; text-align: center;
+  }
+  .day-places.drag-over {
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .day-places .day-empty-hint { margin: 0; }
+
+  .place-card {
+    display: flex; gap: 12px; padding: 10px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 14px; cursor: grab;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  }
+  .place-card:hover { border-color: var(--border-strong); }
+  .place-card:active { cursor: grabbing; }
+  .place-card.dragging { opacity: 0.45; border-style: dashed; }
+  .place-thumb {
+    flex: 0 0 78px; height: 78px; border-radius: 10px; overflow: hidden;
+    display: grid; place-items: center; color: #fff9f2;
+    background: linear-gradient(145deg, var(--ph-a, #e8c39e), var(--ph-b, #bf5b2d));
+    box-shadow: inset 0 -22px 30px rgba(60, 30, 10, 0.11);
+  }
+  .place-thumb svg { width: 42px; height: 42px; opacity: 0.92; }
+  .place-main { flex: 1 1 auto; min-width: 0; }
+  .place-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .place-name { margin: 0; font-size: 0.88rem; font-weight: 700; line-height: 1.3; }
+  .place-address { margin: 1px 0 0; font-size: 0.73rem; color: var(--muted); }
+  .place-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 6px; }
+  .mini-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 0.17rem 0.46rem; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-soft); font-size: 0.67rem; font-weight: 650;
+  }
+  .mini-chip svg { width: 11px; height: 11px; }
+  .place-coords { font-size: 0.66rem; color: var(--muted); }
+  .place-actions { display: flex; align-items: center; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+  .mini-btn {
+    width: 25px; height: 25px; display: grid; place-items: center;
+    border-radius: 50%; border: 1px solid var(--border-strong);
+    background: var(--surface); color: var(--text-soft);
+    font-size: 0.8rem; line-height: 1;
+  }
+  .mini-btn:hover:not(:disabled) { background: var(--accent-soft); color: var(--accent-ink); }
+  .mini-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .move-select {
+    display: flex; align-items: center; gap: 5px;
+    margin-left: auto; font-size: 0.68rem; color: var(--muted);
+  }
+  .move-select select {
+    max-width: 122px; padding: 0.2rem 0.3rem; border-radius: 7px;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--text-soft); font-size: 0.68rem;
+  }
+
+  .itinerary-empty {
+    border: 1px dashed var(--border-strong); border-radius: 20px;
+    background: var(--surface); padding: 44px 20px; text-align: center;
+    color: var(--text-soft);
+  }
+  .itinerary-empty svg { width: 40px; height: 40px; color: var(--accent); margin-bottom: 6px; }
+  .itinerary-empty h2 { margin: 0 0 4px; font-family: var(--font-serif); font-size: 1.3rem; color: var(--text); }
+  .itinerary-empty p { margin: 0 0 16px; font-size: 0.86rem; }
+
+  /* Map */
+  .map-panel {
+    position: sticky; top: 92px; scroll-margin-top: 84px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 18px; box-shadow: var(--shadow);
+  }
+  .map-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .map-head h2 { margin: 0; font-family: var(--font-serif); font-size: 1.3rem; letter-spacing: -0.01em; }
+  .map-day-label { margin: 2px 0 0; font-size: 0.76rem; color: var(--muted); font-weight: 650; }
+  .map-count {
+    flex: 0 0 auto; font-size: 0.72rem; font-weight: 800;
+    color: var(--accent-ink); background: var(--accent-soft);
+    padding: 0.25rem 0.55rem; border-radius: 999px; white-space: nowrap;
+  }
+  .map-canvas {
+    margin-top: 12px; border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden;
+    background-color: var(--surface-2);
+    background-image: radial-gradient(var(--border) 0.7px, transparent 0.7px);
+    background-size: 11px 11px;
+  }
+  .map-canvas svg { display: block; width: 100%; height: auto; max-width: 420px; margin: 0 auto; }
+  .map-land { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.4; }
+  .map-pin circle.pin-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 1.6; }
+  .map-pin circle.pin-halo { fill: var(--accent); opacity: 0.16; }
+  .map-pin text {
+    fill: var(--on-accent); font-family: var(--font-sans);
+    font-size: 7.4px; font-weight: 800; text-anchor: middle;
+  }
+  .map-empty-note {
+    margin: 0; padding: 16px 12px; text-align: center;
+    font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border);
+  }
+  .map-legend {
+    list-style: none; margin: 12px 0 0; padding: 0;
+    display: grid; gap: 5px; max-height: 188px; overflow-y: auto;
+  }
+  .map-legend li {
+    display: flex; align-items: baseline; gap: 7px;
+    font-size: 0.77rem; color: var(--text-soft);
+  }
+  .map-legend .legend-num {
+    flex: 0 0 auto; width: 17px; height: 17px; border-radius: 50%;
+    display: inline-grid; place-items: center;
+    background: var(--accent); color: var(--on-accent);
+    font-size: 0.62rem; font-weight: 800;
+  }
+  .map-legend .legend-time { margin-left: auto; font-size: 0.67rem; color: var(--muted); white-space: nowrap; }
+  .map-legend .legend-empty { color: var(--muted); font-size: 0.78rem; }
+
+  .planner-footnote { margin: 20px 2px 0; font-size: 0.72rem; color: var(--muted); }
+
   /* Footer */
   .site-footer {
     max-width: 1320px; margin: 0 auto; padding: 26px 24px 46px;
@@ -477,10 +759,15 @@
   /* Responsive */
   @media (max-width: 1120px) {
     .layout { grid-template-columns: minmax(0, 1fr) 324px; gap: 24px; }
+    .planner-grid { grid-template-columns: minmax(0, 1fr) 336px; gap: 22px; }
   }
 
   @media (max-width: 960px) {
     .layout { grid-template-columns: 1fr; gap: 0; padding-bottom: 40px; }
+    .planner-grid { grid-template-columns: 1fr; gap: 18px; }
+    .map-panel { position: static; }
+    .planner-actions { width: 100%; }
+    .planner-actions .btn { flex: 1 1 auto; }
     .trip-panel {
       position: fixed; top: 0; right: 0; z-index: 80;
       width: min(92vw, 380px); height: 100dvh; max-height: none;
@@ -518,11 +805,31 @@
     .modal { padding: 20px; border-radius: 18px; max-height: 92dvh; }
     .site-footer { padding: 22px 16px 36px; }
     .mobile-trip-btn { padding: 0.5rem 0.75rem; font-size: 0.82rem; }
+    .view-switch-wrap { padding: 12px 16px 0; }
+    .view-switch { display: flex; width: 100%; }
+    .view-tab { flex: 1 1 0; text-align: center; }
+    .planner-view { padding: 26px 16px 44px; }
+    .planner-hero { margin-bottom: 18px; gap: 16px; }
+    .planner-stats { margin-bottom: 4px; }
+    .day-card { padding: 14px; }
+    .day-head { flex-wrap: wrap; }
+    .day-head-left { flex-basis: 100%; }
+    .day-head-actions { margin-left: auto; }
+    .day-fields { grid-template-columns: 1fr; }
+    .place-thumb { flex-basis: 64px; height: 64px; }
+    .place-thumb svg { width: 34px; height: 34px; }
+    .move-select { flex-basis: 100%; margin-left: 0; max-width: none; }
+    .move-select select { flex: 1 1 auto; max-width: none; }
+    .map-panel { padding: 14px; }
+    .map-canvas svg { max-width: 360px; }
   }
 
   @media (max-width: 400px) {
     .card-actions { flex-direction: column; }
     .trip-head { flex-direction: column; }
+    .place-card { flex-direction: column; }
+    .place-thumb { width: 100%; flex-basis: auto; height: 96px; }
+    .planner-actions { flex-direction: column; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -569,6 +876,13 @@
     </div>
   </div>
 </header>
+
+<div class="view-switch-wrap">
+  <div class="view-switch" role="group" aria-label="Choose a section">
+    <button class="view-tab active" type="button" data-view="explore" aria-pressed="true">Explore</button>
+    <button class="view-tab" type="button" data-view="planner" aria-pressed="false">Day planner</button>
+  </div>
+</div>
 
 <main id="main" class="layout">
   <div class="main-col">
@@ -652,9 +966,48 @@
 </main>
 
 <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+
+<section class="planner-view" id="plannerView" aria-labelledby="plannerTitle" hidden>
+  <div class="planner-hero">
+    <div class="planner-hero-copy">
+      <p class="eyebrow">Plan it day by day</p>
+      <h1 id="plannerTitle" tabindex="-1">Your day-by-day itinerary.</h1>
+      <p class="hero-sub">Add days, search for places, and arrange each stop. Drag places to reorder them, or use the arrows and day selector.</p>
+      <p class="planner-stats" id="plannerStats">1 day · 0 places</p>
+      <p class="planner-save-note" id="saveNote">Saved automatically in this browser.</p>
+    </div>
+    <div class="planner-actions">
+      <button class="btn btn-primary" id="addDayBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        Add day
+      </button>
+      <button class="btn btn-ghost" id="clearItineraryBtn" type="button">Clear all</button>
+    </div>
+  </div>
+
+  <div class="planner-grid">
+    <div class="days-col" id="dayList"></div>
+
+    <aside class="map-panel" id="mapPanel" aria-labelledby="mapTitle">
+      <div class="map-head">
+        <div>
+          <h2 id="mapTitle">Day map</h2>
+          <p class="map-day-label" id="mapDayLabel">Day 1</p>
+        </div>
+        <span class="map-count" id="mapCount">0 places</span>
+      </div>
+      <div class="map-canvas" id="mapCanvas"></div>
+      <ul class="map-legend" id="mapLegend"></ul>
+      <p class="trip-footnote">Markers show the selected day. Use “Map” on a day to focus it here.</p>
+    </aside>
+  </div>
+
+  <p class="planner-footnote">Your itinerary is saved in this browser using local storage. Clearing browser data will remove it.</p>
+</section>
+
 <footer class="site-footer">
   <p><strong>Travel note:</strong> permits, opening times and prices should be confirmed before travel.</p>
-  <p>Built as a single self-contained page. No accounts, no tracking, no stored data.</p>
+  <p>Built as a single self-contained page. No accounts, no tracking. Your day plan is saved only in this browser.</p>
 </footer>
 
 <div class="modal-overlay" id="modalOverlay" hidden>
@@ -1482,6 +1835,799 @@ if (typeof desktopQuery.addEventListener === "function") {
 renderCards();
 renderTrip();
 updateThemeLabel();
+
+  const places = [
+    { id: "kozhikode-beach", name: "Kozhikode Beach", address: "Kozhikode, Kerala", lat: 11.2588, lng: 75.7804, time: "1–2 hours", category: "beach" },
+    { id: "kappad-beach", name: "Kappad Beach", address: "Kappad, Kozhikode district, Kerala", lat: 11.3832, lng: 75.7166, time: "1–2 hours", category: "beach" },
+    { id: "fort-kochi", name: "Fort Kochi", address: "Fort Kochi, Kochi, Kerala", lat: 9.9658, lng: 76.2420, time: "Half day", category: "heritage" },
+    { id: "mattancherry-palace", name: "Mattancherry Palace", address: "Mattancherry, Kochi, Kerala", lat: 9.9580, lng: 76.2594, time: "1–2 hours", category: "palace" },
+    { id: "marine-drive-kochi", name: "Marine Drive Kochi", address: "Marine Drive, Kochi, Kerala", lat: 9.9800, lng: 76.2800, time: "1 hour", category: "city" },
+    { id: "munnar-tea", name: "Munnar Tea Gardens", address: "Munnar, Idukki district, Kerala", lat: 10.0892, lng: 77.0595, time: "2–3 hours", category: "mountain" },
+    { id: "alleppey-backwaters", name: "Alleppey Backwaters", address: "Alappuzha, Kerala", lat: 9.4981, lng: 76.3388, time: "Half day", category: "backwater" },
+    { id: "varkala-beach", name: "Varkala Beach", address: "Varkala, Thiruvananthapuram, Kerala", lat: 8.7379, lng: 76.7163, time: "2–3 hours", category: "beach" },
+    { id: "kovalam-beach", name: "Kovalam Beach", address: "Kovalam, Thiruvananthapuram, Kerala", lat: 8.3983, lng: 76.9787, time: "Half day", category: "beach" },
+    { id: "padmanabhaswamy", name: "Sree Padmanabhaswamy Temple", address: "East Fort, Thiruvananthapuram, Kerala", lat: 8.4828, lng: 76.9436, time: "1–2 hours", category: "temple" },
+    { id: "athirappilly", name: "Athirappilly Falls", address: "Chalakudy, Thrissur, Kerala", lat: 10.2856, lng: 76.5699, time: "2–3 hours", category: "waterfall" },
+    { id: "bekal-fort", name: "Bekal Fort", address: "Bekal, Kasaragod, Kerala", lat: 12.3800, lng: 75.0300, time: "2 hours", category: "fort" },
+    { id: "wayanad-wildlife", name: "Wayanad Wildlife Sanctuary", address: "Sultan Bathery, Wayanad, Kerala", lat: 11.6854, lng: 76.1320, time: "Half day", category: "wildlife" },
+    { id: "periyar", name: "Periyar Wildlife Sanctuary", address: "Thekkady, Idukki, Kerala", lat: 9.6000, lng: 77.1600, time: "Half day", category: "wildlife" },
+    { id: "kumarakom", name: "Kumarakom Bird Sanctuary", address: "Kumarakom, Kottayam, Kerala", lat: 9.6177, lng: 76.4271, time: "2–3 hours", category: "wildlife" },
+    { id: "hampi", name: "Virupaksha Temple", address: "Hampi, Karnataka", lat: 15.3350, lng: 76.4600, time: "2–3 hours", category: "temple" },
+    { id: "mysore-palace", name: "Mysore Palace", address: "Mysuru, Karnataka", lat: 12.3052, lng: 76.6551, time: "2–3 hours", category: "palace" },
+    { id: "doddabetta", name: "Doddabetta Peak", address: "Ooty, Tamil Nadu", lat: 11.4000, lng: 76.7350, time: "1–2 hours", category: "mountain" },
+    { id: "ooty-lake", name: "Ooty Lake", address: "Ooty, Tamil Nadu", lat: 11.4064, lng: 76.6932, time: "1–2 hours", category: "lake" },
+    { id: "meenakshi", name: "Meenakshi Temple", address: "Madurai, Tamil Nadu", lat: 9.9195, lng: 78.1193, time: "2–3 hours", category: "temple" },
+    { id: "marina-beach", name: "Marina Beach", address: "Chennai, Tamil Nadu", lat: 13.0500, lng: 80.2824, time: "1–2 hours", category: "beach" },
+    { id: "rock-beach", name: "Rock Beach", address: "Puducherry", lat: 11.9320, lng: 79.8360, time: "1–2 hours", category: "beach" },
+    { id: "golconda", name: "Golconda Fort", address: "Hyderabad, Telangana", lat: 17.3833, lng: 78.4011, time: "Half day", category: "fort" },
+    { id: "baga-beach", name: "Baga Beach", address: "Baga, Goa", lat: 15.5553, lng: 73.7517, time: "Half day", category: "beach" },
+    { id: "palolem-beach", name: "Palolem Beach", address: "Canacona, Goa", lat: 15.0100, lng: 74.0233, time: "Half day", category: "beach" },
+    { id: "fort-aguada", name: "Fort Aguada", address: "Candolim, Goa", lat: 15.4926, lng: 73.7735, time: "1–2 hours", category: "fort" },
+    { id: "gateway-mumbai", name: "Gateway of India", address: "Colaba, Mumbai, Maharashtra", lat: 18.9220, lng: 72.8347, time: "1 hour", category: "monument" },
+    { id: "marine-drive-mumbai", name: "Marine Drive Mumbai", address: "Marine Drive, Mumbai, Maharashtra", lat: 18.9432, lng: 72.8236, time: "1–2 hours", category: "city" },
+    { id: "elephanta", name: "Elephanta Caves", address: "Gharapuri Island, Mumbai, Maharashtra", lat: 18.9633, lng: 72.9315, time: "Half day", category: "heritage" },
+    { id: "white-rann", name: "White Rann of Kutch", address: "Kutch, Gujarat", lat: 23.8500, lng: 69.7500, time: "Half day", category: "desert" },
+    { id: "amber-fort", name: "Amber Fort", address: "Amer, Jaipur, Rajasthan", lat: 26.9855, lng: 75.8513, time: "Half day", category: "fort" },
+    { id: "hawa-mahal", name: "Hawa Mahal", address: "Jaipur, Rajasthan", lat: 26.9239, lng: 75.8267, time: "1 hour", category: "monument" },
+    { id: "city-palace-udaipur", name: "City Palace Udaipur", address: "Udaipur, Rajasthan", lat: 24.5764, lng: 73.6835, time: "2–3 hours", category: "palace" },
+    { id: "jaisalmer-fort", name: "Jaisalmer Fort", address: "Jaisalmer, Rajasthan", lat: 26.9124, lng: 70.9126, time: "Half day", category: "fort" },
+    { id: "taj-mahal", name: "Taj Mahal", address: "Agra, Uttar Pradesh", lat: 27.1751, lng: 78.0421, time: "2–3 hours", category: "monument" },
+    { id: "india-gate", name: "India Gate", address: "New Delhi", lat: 28.6129, lng: 77.2295, time: "1 hour", category: "city" },
+    { id: "qutub-minar", name: "Qutub Minar", address: "Mehrauli, New Delhi", lat: 28.5245, lng: 77.1855, time: "1–2 hours", category: "monument" },
+    { id: "dashashwamedh", name: "Dashashwamedh Ghat", address: "Varanasi, Uttar Pradesh", lat: 25.3060, lng: 83.0106, time: "1–2 hours", category: "temple" },
+    { id: "laxman-jhula", name: "Laxman Jhula", address: "Rishikesh, Uttarakhand", lat: 30.1260, lng: 78.3290, time: "1 hour", category: "heritage" },
+    { id: "pangong-tso", name: "Pangong Tso", address: "Ladakh", lat: 33.7500, lng: 78.6667, time: "Half day", category: "lake" },
+    { id: "solang-valley", name: "Solang Valley", address: "Manali, Himachal Pradesh", lat: 32.3137, lng: 77.1555, time: "Half day", category: "mountain" },
+    { id: "hadimba-temple", name: "Hadimba Temple", address: "Manali, Himachal Pradesh", lat: 32.2426, lng: 77.1780, time: "1 hour", category: "temple" },
+    { id: "nohkalikai", name: "Nohkalikai Falls", address: "Cherrapunji, Meghalaya", lat: 25.2730, lng: 91.7170, time: "1–2 hours", category: "waterfall" },
+    { id: "double-decker", name: "Double Decker Root Bridge", address: "Nongriat, Meghalaya", lat: 25.2500, lng: 91.7000, time: "Half day", category: "trek" },
+    { id: "tsomgo", name: "Tsomgo Lake", address: "East Sikkim, Sikkim", lat: 27.3700, lng: 88.7700, time: "2–3 hours", category: "lake" },
+    { id: "rumtek", name: "Rumtek Monastery", address: "Gangtok, Sikkim", lat: 27.3000, lng: 88.5700, time: "1–2 hours", category: "temple" },
+    { id: "kaziranga", name: "Kaziranga National Park", address: "Kohora, Assam", lat: 26.5775, lng: 93.1711, time: "Half day", category: "wildlife" },
+    { id: "tawang", name: "Tawang Monastery", address: "Tawang, Arunachal Pradesh", lat: 27.5860, lng: 91.8590, time: "1–2 hours", category: "temple" },
+    { id: "radhanagar", name: "Radhanagar Beach", address: "Havelock Island, Andaman & Nicobar", lat: 12.0180, lng: 92.9570, time: "Half day", category: "beach" },
+    { id: "elephant-beach", name: "Elephant Beach", address: "Havelock Island, Andaman & Nicobar", lat: 12.0500, lng: 92.9800, time: "2–3 hours", category: "beach" },
+    { id: "agatti", name: "Agatti Lagoon", address: "Agatti Island, Lakshadweep", lat: 10.8500, lng: 72.1900, time: "Half day", category: "lagoon" }
+  ];
+
+  const STORAGE_KEY = "wanderIndia.itinerary.v1";
+  const placeById = new Map(places.map(function (place) { return [place.id, place]; }));
+
+  const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>';
+  const ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>';
+  const ICON_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 1.8"></path></svg>';
+
+  const ART_STYLE = {
+    beach: { a: "#f6d8a8", b: "#e08a5f" },
+    water: { a: "#cfe6df", b: "#3f8b82" },
+    hills: { a: "#dfe8cf", b: "#6f8b55" },
+    heritage: { a: "#f0d9c3", b: "#b06a45" },
+    wildlife: { a: "#dbe7c9", b: "#5c7a3f" },
+    city: { a: "#e8dccf", b: "#9a7b62" },
+    desert: { a: "#f7e4b8", b: "#d1a254" },
+    waterfall: { a: "#d7e8e6", b: "#4f8f96" }
+  };
+
+  const ART_ICONS = {
+    water: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="44" cy="19" r="6"></circle><path d="M7 42c6-5 12-5 18 0s12 5 18 0 12-5 18 0"></path><path d="M7 52c6-5 12-5 18 0s12 5 18 0 12-5 18 0"></path></svg>',
+    hills: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="46" cy="17" r="5"></circle><path d="M6 51l15-23 10 15 8-10 19 18H6z"></path></svg>',
+    heritage: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 51V29l22-15 22 15v22H10z"></path><path d="M22 51V37h20v14"></path><path d="M28 29h8"></path></svg>',
+    wildlife: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 51l11-16 11 16"></path><circle cx="32" cy="24" r="8"></circle><circle cx="20" cy="17" r="4"></circle><circle cx="44" cy="17" r="4"></circle></svg>',
+    city: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 51V31h11v20M25 51V20h13v31M43 51V35h12v16"></path><path d="M7 51h50"></path></svg>',
+    desert: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="45" cy="17" r="6"></circle><path d="M6 44c8-10 16-10 24 0s16 10 24 0"></path><path d="M6 54c8-10 16-10 24 0s16 10 24 0"></path></svg>',
+    waterfall: '<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12h40"></path><path d="M22 18v13c0 6 4 10 10 10s10-4 10-10V18"></path><path d="M17 55c9-6 21-6 30 0"></path></svg>'
+  };
+
+  const MAP_BOUNDS = { minLng: 68.0, maxLng: 97.6, minLat: 7.5, maxLat: 36.0 };
+  const MAP_W = 400;
+  const MAP_H = 460;
+  const MAP_PAD = 18;
+  const MAP_COS = Math.cos((((MAP_BOUNDS.minLat + MAP_BOUNDS.maxLat) / 2) * Math.PI) / 180);
+  const MAP_SPAN_X = (MAP_BOUNDS.maxLng - MAP_BOUNDS.minLng) * MAP_COS;
+  const MAP_SPAN_Y = MAP_BOUNDS.maxLat - MAP_BOUNDS.minLat;
+  const MAP_SCALE = Math.min((MAP_W - MAP_PAD * 2) / MAP_SPAN_X, (MAP_H - MAP_PAD * 2) / MAP_SPAN_Y);
+  const MAP_CONTENT_W = MAP_SPAN_X * MAP_SCALE;
+  const MAP_CONTENT_H = MAP_SPAN_Y * MAP_SCALE;
+  const MAP_OFFSET_X = (MAP_W - MAP_CONTENT_W) / 2;
+  const MAP_OFFSET_Y = (MAP_H - MAP_CONTENT_H) / 2;
+  const INDIA_PATH = "M139.0 48.0L152.2 63.5L150.9 74.3L155.8 81.1L155.4 87.9L146.6 86.1L150.1 100.7L162.1 109.1L179.2 118.3L171.4 124.3L166.7 136.7L178.6 141.7L190.2 148.2L206.2 155.7L223.1 157.4L230.2 164.1L239.7 165.4L254.4 168.5L264.7 168.2L266.1 163.0L264.5 154.6L265.4 148.9L272.9 146.1L274.0 156.5L274.2 159.2L285.4 164.2L293.1 162.1L303.5 163.0L313.5 162.6L314.4 154.5L309.4 150.3L319.3 148.6L330.5 138.8L344.7 130.3L355.0 133.6L363.8 128.0L369.5 136.2L365.4 141.8L378.6 143.8L379.6 148.8L375.3 151.2L376.3 159.4L367.5 157.0L351.6 166.1L351.9 173.7L345.1 184.8L344.5 191.3L339.0 202.2L329.4 199.2L329.0 212.9L326.2 217.4L327.5 223.0L321.4 226.1L314.9 205.1L311.5 205.2L309.5 213.6L302.8 206.8L306.6 199.2L312.1 198.5L317.8 187.3L310.7 185.0L299.3 185.2L287.6 183.4L286.5 174.2L280.6 173.5L270.9 167.8L266.5 176.8L275.4 183.8L267.7 188.7L265.0 193.6L272.6 197.1L270.5 205.1L274.7 215.1L276.6 226.0L274.9 230.8L266.5 230.6L251.3 233.4L252.1 243.3L245.5 251.2L227.8 260.1L214.0 275.7L204.8 284.0L192.5 292.7L192.5 298.8L186.4 302.0L175.3 306.8L169.6 307.5L165.9 317.6L168.4 334.8L169.1 345.8L163.9 358.3L163.8 380.8L157.5 381.5L151.9 391.6L155.6 395.9L144.4 399.7L140.2 408.7L135.3 412.5L123.7 400.1L118.0 381.6L113.3 368.2L109.0 362.0L102.4 349.3L99.4 332.7L97.2 324.4L86.1 306.3L81.0 280.6L77.3 263.7L77.3 247.6L74.9 235.2L57.0 243.1L48.4 241.6L32.3 225.5L38.2 220.7L34.6 215.5L20.2 204.3L28.4 195.5L55.4 195.5L53.0 184.1L46.1 177.4L44.7 167.2L36.6 161.3L50.2 147.4L64.5 148.4L77.3 134.5L85.0 121.1L97.0 107.8L96.8 98.4L107.3 90.7L97.3 84.2L93.1 75.2L88.7 63.6L94.7 57.9L113.4 61.1L127.1 59.2L139.0 48.0Z";
+
+  const planner = { days: [], activeDayId: null, saveTimer: null, storageOk: true };
+  let suggestIndex = -1;
+  let dragOrigin = null;
+
+  const pEls = {
+    viewTabs: Array.from(document.querySelectorAll(".view-tab")),
+    exploreView: document.getElementById("main"),
+    plannerView: document.getElementById("plannerView"),
+    plannerTitle: document.getElementById("plannerTitle"),
+    plannerStats: document.getElementById("plannerStats"),
+    saveNote: document.getElementById("saveNote"),
+    addDayBtn: document.getElementById("addDayBtn"),
+    clearItineraryBtn: document.getElementById("clearItineraryBtn"),
+    dayList: document.getElementById("dayList"),
+    mapPanel: document.getElementById("mapPanel"),
+    mapCanvas: document.getElementById("mapCanvas"),
+    mapLegend: document.getElementById("mapLegend"),
+    mapDayLabel: document.getElementById("mapDayLabel"),
+    mapCount: document.getElementById("mapCount")
+  };
+
+  function uid(prefix) {
+    return prefix + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+
+  function projectToMap(lat, lng) {
+    return {
+      x: MAP_OFFSET_X + (lng - MAP_BOUNDS.minLng) * MAP_COS * MAP_SCALE,
+      y: MAP_OFFSET_Y + (MAP_BOUNDS.maxLat - lat) * MAP_SCALE
+    };
+  }
+
+  function formatCoords(lat, lng) {
+    return Math.abs(lat).toFixed(2) + "°" + (lat >= 0 ? "N" : "S") + ", " + Math.abs(lng).toFixed(2) + "°" + (lng >= 0 ? "E" : "W");
+  }
+
+  function artKey(category) {
+    if (category === "beach" || category === "lagoon") return "beach";
+    if (category === "backwater" || category === "lake") return "water";
+    if (category === "mountain" || category === "trek") return "hills";
+    if (category === "wildlife") return "wildlife";
+    if (category === "desert") return "desert";
+    if (category === "waterfall") return "waterfall";
+    if (category === "city") return "city";
+    return "heritage";
+  }
+
+  function getPlanDay(id) {
+    return planner.days.find(function (day) { return day.id === id; }) || null;
+  }
+
+  function dayNumber(id) {
+    return planner.days.findIndex(function (day) { return day.id === id; }) + 1;
+  }
+
+  function defaultPlan() {
+    const day = { id: uid("day"), title: "", date: "", notes: "", places: [] };
+    return { days: [day], activeDayId: day.id };
+  }
+
+  function loadPlan() {
+    let raw;
+    try {
+      raw = localStorage.getItem(STORAGE_KEY);
+    } catch (err) {
+      planner.storageOk = false;
+      return defaultPlan();
+    }
+    if (!raw) return defaultPlan();
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (err) {
+      return defaultPlan();
+    }
+    if (!data || !Array.isArray(data.days)) return defaultPlan();
+    const seen = new Set();
+    const days = data.days.map(function (item) {
+      if (!item || typeof item !== "object") return null;
+      let id = typeof item.id === "string" && /^[A-Za-z0-9_-]{1,64}$/.test(item.id) ? item.id : uid("day");
+      if (seen.has(id)) id = uid("day");
+      seen.add(id);
+      return {
+        id: id,
+        title: typeof item.title === "string" ? item.title.slice(0, 120) : "",
+        date: typeof item.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.date) ? item.date : "",
+        notes: typeof item.notes === "string" ? item.notes.slice(0, 2000) : "",
+        places: Array.isArray(item.places)
+          ? item.places.filter(function (p) { return p && placeById.has(p.placeId); }).map(function (p) { return { placeId: p.placeId }; })
+          : []
+      };
+    }).filter(Boolean);
+    if (!days.length) return { days: [], activeDayId: null };
+    const active = days.some(function (day) { return day.id === data.activeDayId; }) ? data.activeDayId : days[0].id;
+    return { days: days, activeDayId: active };
+  }
+
+  function saveNow() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, activeDayId: planner.activeDayId, days: planner.days }));
+      if (!planner.storageOk) planner.storageOk = true;
+    } catch (err) {
+      planner.storageOk = false;
+    }
+    updateSaveNote();
+  }
+
+  function scheduleSave() {
+    window.clearTimeout(planner.saveTimer);
+    planner.saveTimer = window.setTimeout(saveNow, 220);
+  }
+
+  function updateSaveNote() {
+    if (!pEls.saveNote) return;
+    pEls.saveNote.textContent = planner.storageOk
+      ? "Saved automatically in this browser."
+      : "Storage is unavailable — changes will last only for this visit.";
+  }
+
+  function searchPlaces(query, day) {
+    const q = query.toLowerCase();
+    const used = new Set(day.places.map(function (item) { return item.placeId; }));
+    return places.filter(function (place) {
+      if (used.has(place.id)) return false;
+      return (place.name + " " + place.address + " " + place.category).toLowerCase().indexOf(q) !== -1;
+    }).sort(function (a, b) {
+      const aStart = a.name.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+      const bStart = b.name.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+      return aStart - bStart || a.name.localeCompare(b.name);
+    }).slice(0, 7);
+  }
+
+  function placeCardHTML(item, day, index) {
+    const place = placeById.get(item.placeId);
+    if (!place) return "";
+    const key = artKey(place.category);
+    const art = ART_STYLE[key] || ART_STYLE.heritage;
+    const icon = ART_ICONS[key] || ART_ICONS.heritage;
+    const otherDays = planner.days.filter(function (d) { return d.id !== day.id; });
+    const moveOptions = otherDays.map(function (d) {
+      const label = "Day " + dayNumber(d.id) + (d.title.trim() ? " · " + d.title.trim() : "");
+      return '<option value="' + d.id + '">' + escapeHtml(label) + "</option>";
+    }).join("");
+    return '' +
+      '<article class="place-card" draggable="true" data-place-id="' + place.id + '" data-day-id="' + day.id + '" data-index="' + index + '">' +
+        '<div class="place-thumb" style="--ph-a:' + art.a + ';--ph-b:' + art.b + '" aria-hidden="true">' + icon + "</div>" +
+        '<div class="place-main">' +
+          '<div class="place-row">' +
+            "<div>" +
+              '<h4 class="place-name">' + escapeHtml(place.name) + "</h4>" +
+              '<p class="place-address">' + escapeHtml(place.address) + "</p>" +
+            "</div>" +
+            '<button class="icon-btn small" type="button" data-remove-place="' + place.id + '" data-day-id="' + day.id + '" aria-label="Remove ' + escapeHtml(place.name) + ' from Day ' + dayNumber(day.id) + '" title="Remove place">' + ICON_X + "</button>" +
+          "</div>" +
+          '<div class="place-meta">' +
+            '<span class="mini-chip">' + ICON_CLOCK + " " + escapeHtml(place.time) + "</span>" +
+            '<span class="place-coords">' + formatCoords(place.lat, place.lng) + "</span>" +
+          "</div>" +
+          '<div class="place-actions">' +
+            '<button class="mini-btn" type="button" data-move-place="-1" data-place-id="' + place.id + '" data-day-id="' + day.id + '" aria-label="Move ' + escapeHtml(place.name) + ' up"' + (index === 0 ? " disabled" : "") + ">↑</button>" +
+            '<button class="mini-btn" type="button" data-move-place="1" data-place-id="' + place.id + '" data-day-id="' + day.id + '" aria-label="Move ' + escapeHtml(place.name) + ' down"' + (index === day.places.length - 1 ? " disabled" : "") + ">↓</button>" +
+            (moveOptions ? '<label class="move-select">Move to <select data-move-day data-place-id="' + place.id + '" data-day-id="' + day.id + '" aria-label="Move ' + escapeHtml(place.name) + ' to another day"><option value="">Day…</option>' + moveOptions + "</select></label>" : "") +
+          "</div>" +
+        "</div>" +
+      "</article>";
+  }
+
+  function dayCardHTML(day, index) {
+    const dayNum = index + 1;
+    const isEmpty = day.places.length === 0;
+    const placesHTML = day.places.map(function (item, placeIndex) { return placeCardHTML(item, day, placeIndex); }).join("");
+    return '' +
+      '<article class="day-card' + (planner.activeDayId === day.id ? " active" : "") + '" data-day-id="' + day.id + '">' +
+        '<div class="day-head">' +
+          '<div class="day-head-left">' +
+            '<span class="day-badge">Day ' + dayNum + "</span>" +
+            '<input class="day-title-input" type="text" data-field="title" value="' + escapeHtml(day.title) + '" placeholder="Name this day (e.g. Kozhikode Beach)" maxlength="120" aria-label="Title for Day ' + dayNum + '">' +
+          "</div>" +
+          '<div class="day-head-actions">' +
+            '<button class="btn btn-ghost btn-sm day-map-btn' + (planner.activeDayId === day.id ? " active" : "") + '" type="button" data-map-day="' + day.id + '" aria-label="Show Day ' + dayNum + ' on the map">' + ICON_PIN + " Map</button>" +
+            '<button class="icon-btn small" type="button" data-delete-day="' + day.id + '" aria-label="Delete Day ' + dayNum + '" title="Delete this day">' + ICON_X + "</button>" +
+          "</div>" +
+        "</div>" +
+        '<div class="day-fields">' +
+          '<label class="field"><span>Date</span><input type="date" data-field="date" value="' + escapeHtml(day.date) + '" aria-label="Date for Day ' + dayNum + '"></label>' +
+          '<label class="field"><span>Notes</span><textarea data-field="notes" rows="2" maxlength="2000" placeholder="Travel notes, timings, bookings…" aria-label="Notes for Day ' + dayNum + '">' + escapeHtml(day.notes) + "</textarea></label>" +
+        "</div>" +
+        '<div class="place-search">' +
+          ICON_SEARCH +
+          '<input type="text" data-place-search placeholder="Search a place, e.g. Kappad Beach" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="suggestions-' + day.id + '" aria-label="Search places to add to Day ' + dayNum + '">' +
+          '<div class="suggestions" id="suggestions-' + day.id + '" role="listbox" hidden></div>' +
+        "</div>" +
+        '<div class="day-places' + (isEmpty ? " is-empty" : "") + '" data-day-list data-day-id="' + day.id + '">' +
+          (isEmpty ? '<p class="day-empty-hint">No places yet — search above to add your first stop.</p>' : placesHTML) +
+        "</div>" +
+      "</article>";
+  }
+
+  function updatePlannerStats() {
+    const dayCount = planner.days.length;
+    const placeCount = planner.days.reduce(function (sum, day) { return sum + day.places.length; }, 0);
+    if (pEls.plannerStats) {
+      pEls.plannerStats.textContent = dayCount + " " + (dayCount === 1 ? "day" : "days") + " · " + placeCount + " " + (placeCount === 1 ? "place" : "places");
+    }
+  }
+
+  function renderDays() {
+    if (!planner.days.length) {
+      pEls.dayList.innerHTML = '<div class="itinerary-empty">' + ICON_COMPASS + "<h2>No days yet.</h2><p>Add a day to start planning your route.</p>" +
+        '<button class="btn btn-primary" type="button" data-add-day-empty>Add your first day</button></div>';
+      pEls.clearItineraryBtn.disabled = true;
+    } else {
+      pEls.dayList.innerHTML = planner.days.map(dayCardHTML).join("");
+      pEls.clearItineraryBtn.disabled = false;
+    }
+    updatePlannerStats();
+    renderMap();
+  }
+
+  function renderMap() {
+    const day = getPlanDay(planner.activeDayId) || planner.days[0] || null;
+    if (day && !planner.activeDayId) planner.activeDayId = day.id;
+    const selected = day ? day.places.map(function (item) { return placeById.get(item.placeId); }).filter(Boolean) : [];
+    pEls.mapDayLabel.textContent = day ? "Day " + dayNumber(day.id) + (day.title.trim() ? " · " + day.title.trim() : "") : "No day selected";
+    pEls.mapCount.textContent = selected.length + " " + (selected.length === 1 ? "place" : "places");
+    if (!day) {
+      pEls.mapCanvas.innerHTML = '<p class="map-empty-note">Add a day to see the map.</p>';
+      pEls.mapLegend.innerHTML = "";
+      return;
+    }
+    const markers = selected.map(function (place, index) {
+      const pt = projectToMap(place.lat, place.lng);
+      return '<g class="map-pin" transform="translate(' + pt.x.toFixed(1) + " " + pt.y.toFixed(1) + ')">' +
+        '<circle class="pin-halo" r="11"></circle><circle class="pin-dot" r="7.5"></circle>' +
+        '<text y=".4">' + (index + 1) + "</text>" +
+        "<title>" + escapeHtml(place.name) + " — " + escapeHtml(place.address) + "</title></g>";
+    }).join("");
+    pEls.mapCanvas.innerHTML = '<svg viewBox="0 0 400 460" role="img" aria-label="Map of India showing places for ' + escapeHtml(pEls.mapDayLabel.textContent) + '">' +
+      '<path class="map-land" d="' + INDIA_PATH + '"></path>' + markers + "</svg>" +
+      (selected.length ? "" : '<p class="map-empty-note">No places yet for this day. Search above to add a stop.</p>');
+    pEls.mapLegend.innerHTML = selected.length
+      ? selected.map(function (place, index) {
+          return '<li><span class="legend-num">' + (index + 1) + "</span><span>" + escapeHtml(place.name) + '</span><span class="legend-time">' + escapeHtml(place.time) + "</span></li>";
+        }).join("")
+      : '<li class="legend-empty">Places for the selected day will be listed here.</li>';
+  }
+
+  function updateMapHeading(day) {
+    if (!day || planner.activeDayId !== day.id) return;
+    pEls.mapDayLabel.textContent = "Day " + dayNumber(day.id) + (day.title.trim() ? " · " + day.title.trim() : "");
+  }
+
+  function selectDay(dayId, scrollToMap) {
+    if (!getPlanDay(dayId)) return;
+    const changed = planner.activeDayId !== dayId;
+    planner.activeDayId = dayId;
+    if (changed) scheduleSave();
+    syncDaySelection();
+    if (changed) renderMap();
+    if (scrollToMap) pEls.mapPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function syncDaySelection() {
+    pEls.dayList.querySelectorAll(".day-card").forEach(function (card) {
+      const active = card.getAttribute("data-day-id") === planner.activeDayId;
+      card.classList.toggle("active", active);
+      const mapButton = card.querySelector("[data-map-day]");
+      if (mapButton) mapButton.classList.toggle("active", active);
+    });
+  }
+
+  function toDateInput(date) {
+    return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+  }
+
+  function addDay() {
+    let date = "";
+    const last = planner.days[planner.days.length - 1];
+    if (last && last.date) {
+      const parsed = new Date(last.date + "T00:00:00");
+      if (!Number.isNaN(parsed.getTime())) {
+        parsed.setDate(parsed.getDate() + 1);
+        date = toDateInput(parsed);
+      }
+    }
+    const day = { id: uid("day"), title: "", date: date, notes: "", places: [] };
+    planner.days.push(day);
+    planner.activeDayId = day.id;
+    saveNow();
+    renderDays();
+    const card = pEls.dayList.querySelector('[data-day-id="' + day.id + '"]');
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+      const titleInput = card.querySelector('[data-field="title"]');
+      if (titleInput) window.setTimeout(function () { titleInput.focus({ preventScroll: true }); }, 260);
+    }
+    toast("Day " + planner.days.length + " added");
+  }
+
+  function deleteDay(dayId) {
+    const index = planner.days.findIndex(function (day) { return day.id === dayId; });
+    if (index === -1) return;
+    const day = planner.days[index];
+    const hasContent = day.places.length > 0 || day.title.trim() || day.notes.trim();
+    if (hasContent && !window.confirm("Delete Day " + (index + 1) + " and its " + day.places.length + " place" + (day.places.length === 1 ? "" : "s") + "?")) return;
+    planner.days.splice(index, 1);
+    if (planner.activeDayId === dayId) {
+      const next = planner.days[index] || planner.days[index - 1] || planner.days[0];
+      planner.activeDayId = next ? next.id : null;
+    }
+    saveNow();
+    renderDays();
+    toast("Day " + (index + 1) + " deleted");
+  }
+
+  function clearItinerary() {
+    if (!planner.days.length) return;
+    if (!window.confirm("Clear the whole itinerary? This removes all days and places.")) return;
+    planner.days = [];
+    planner.activeDayId = null;
+    saveNow();
+    renderDays();
+    toast("Itinerary cleared");
+  }
+
+  function addPlaceToDay(dayId, placeId) {
+    const day = getPlanDay(dayId);
+    const place = placeById.get(placeId);
+    if (!day || !place) return;
+    if (day.places.some(function (item) { return item.placeId === placeId; })) {
+      toast(place.name + " is already in this day");
+      return;
+    }
+    day.places.push({ placeId: placeId });
+    planner.activeDayId = dayId;
+    saveNow();
+    renderDays();
+    const card = pEls.dayList.querySelector('[data-day-id="' + dayId + '"]');
+    if (card) {
+      const searchInput = card.querySelector("[data-place-search]");
+      if (searchInput) searchInput.focus({ preventScroll: true });
+    }
+    toast(place.name + " added to Day " + dayNumber(dayId));
+  }
+
+  function removePlace(dayId, placeId) {
+    const day = getPlanDay(dayId);
+    if (!day) return;
+    const index = day.places.findIndex(function (item) { return item.placeId === placeId; });
+    if (index === -1) return;
+    const place = placeById.get(placeId);
+    day.places.splice(index, 1);
+    saveNow();
+    renderDays();
+    toast((place ? place.name : "Place") + " removed");
+  }
+
+  function movePlaceWithinDay(dayId, placeId, delta) {
+    const day = getPlanDay(dayId);
+    if (!day) return;
+    const index = day.places.findIndex(function (item) { return item.placeId === placeId; });
+    const nextIndex = index + delta;
+    if (index < 0 || nextIndex < 0 || nextIndex >= day.places.length) return;
+    const item = day.places.splice(index, 1)[0];
+    day.places.splice(nextIndex, 0, item);
+    saveNow();
+    renderDays();
+  }
+
+  function movePlaceToDay(fromDayId, placeId, toDayId) {
+    if (fromDayId === toDayId) return;
+    const from = getPlanDay(fromDayId);
+    const to = getPlanDay(toDayId);
+    const place = placeById.get(placeId);
+    if (!from || !to || !place) return;
+    const index = from.places.findIndex(function (item) { return item.placeId === placeId; });
+    if (index === -1) return;
+    const item = from.places.splice(index, 1)[0];
+    to.places.push(item);
+    planner.activeDayId = toDayId;
+    saveNow();
+    renderDays();
+    toast(place.name + " moved to Day " + dayNumber(toDayId));
+  }
+
+  function clearDragOver() {
+    pEls.dayList.querySelectorAll(".drag-over").forEach(function (el) { el.classList.remove("drag-over"); });
+  }
+
+  function movePlaceByDrag(origin, targetDayId, targetIndex) {
+    const from = getPlanDay(origin.dayId);
+    const to = getPlanDay(targetDayId);
+    if (!from || !to) return;
+    const fromIndex = from.places.findIndex(function (item) { return item.placeId === origin.placeId; });
+    if (fromIndex === -1) return;
+    if (from === to) {
+      let insertAt = targetIndex;
+      if (insertAt > fromIndex) insertAt -= 1;
+      if (insertAt === fromIndex) return;
+      const item = from.places.splice(fromIndex, 1)[0];
+      insertAt = Math.max(0, Math.min(to.places.length, insertAt));
+      to.places.splice(insertAt, 0, item);
+    } else {
+      const item = from.places.splice(fromIndex, 1)[0];
+      const insertAt = Math.max(0, Math.min(to.places.length, targetIndex));
+      to.places.splice(insertAt, 0, item);
+    }
+    planner.activeDayId = targetDayId;
+    saveNow();
+    renderDays();
+  }
+
+  function closeSuggestions(scope) {
+    if (!scope) return;
+    const box = scope.querySelector(".suggestions");
+    const input = scope.querySelector("[data-place-search]");
+    if (box) {
+      box.hidden = true;
+      box.innerHTML = "";
+    }
+    if (input) input.setAttribute("aria-expanded", "false");
+    suggestIndex = -1;
+  }
+
+  function closeAllSuggestions() {
+    pEls.dayList.querySelectorAll(".place-search").forEach(closeSuggestions);
+  }
+
+  function renderSuggestions(card, query) {
+    if (!card) return;
+    const day = getPlanDay(card.getAttribute("data-day-id"));
+    const input = card.querySelector("[data-place-search]");
+    const box = card.querySelector(".suggestions");
+    if (!day || !input || !box) return;
+    const value = query.trim();
+    if (!value) {
+      closeSuggestions(card);
+      return;
+    }
+    const matches = searchPlaces(value, day);
+    if (!matches.length) {
+      box.innerHTML = '<p class="suggestion-empty">No new places match that name.</p>';
+    } else {
+      box.innerHTML = matches.map(function (place) {
+        const key = artKey(place.category);
+        const art = ART_STYLE[key] || ART_STYLE.heritage;
+        return '<div class="suggestion" role="option" tabindex="-1" data-place-option="' + place.id + '">' +
+          '<span class="suggestion-icon" style="--ph-a:' + art.a + ';--ph-b:' + art.b + '" aria-hidden="true">' + (ART_ICONS[key] || ART_ICONS.heritage) + "</span>" +
+          '<span class="suggestion-text"><strong>' + escapeHtml(place.name) + "</strong><small>" + escapeHtml(place.address) + "</small></span>" +
+          '<span class="suggestion-time">' + escapeHtml(place.time) + "</span></div>";
+      }).join("");
+    }
+    box.hidden = false;
+    input.setAttribute("aria-expanded", "true");
+    suggestIndex = -1;
+  }
+
+  function highlightSuggestion(card, nextIndex) {
+    const box = card.querySelector(".suggestions");
+    const items = box ? Array.from(box.querySelectorAll(".suggestion")) : [];
+    if (!items.length) return;
+    suggestIndex = (nextIndex + items.length) % items.length;
+    items.forEach(function (el, index) {
+      el.classList.toggle("active", index === suggestIndex);
+      el.setAttribute("aria-selected", index === suggestIndex ? "true" : "false");
+    });
+    items[suggestIndex].scrollIntoView({ block: "nearest" });
+  }
+
+  function wirePlannerEvents() {
+    pEls.viewTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        setView(tab.getAttribute("data-view"), { focus: true, scroll: true });
+      });
+    });
+
+    pEls.addDayBtn.addEventListener("click", addDay);
+    pEls.clearItineraryBtn.addEventListener("click", clearItinerary);
+
+    pEls.dayList.addEventListener("click", function (event) {
+      const dayCard = event.target.closest(".day-card");
+      if (dayCard) selectDay(dayCard.getAttribute("data-day-id"), false);
+
+      if (event.target.closest("[data-add-day-empty]")) {
+        addDay();
+        return;
+      }
+      const mapButton = event.target.closest("[data-map-day]");
+      if (mapButton) {
+        selectDay(mapButton.getAttribute("data-map-day"), true);
+        return;
+      }
+      const deleteButton = event.target.closest("[data-delete-day]");
+      if (deleteButton) {
+        deleteDay(deleteButton.getAttribute("data-delete-day"));
+        return;
+      }
+      const removeButton = event.target.closest("[data-remove-place]");
+      if (removeButton) {
+        removePlace(removeButton.getAttribute("data-day-id"), removeButton.getAttribute("data-remove-place"));
+        return;
+      }
+      const suggestion = event.target.closest("[data-place-option]");
+      if (suggestion) {
+        const card = suggestion.closest(".day-card");
+        if (card) addPlaceToDay(card.getAttribute("data-day-id"), suggestion.getAttribute("data-place-option"));
+        return;
+      }
+      const moveButton = event.target.closest("[data-move-place]");
+      if (moveButton) {
+        movePlaceWithinDay(moveButton.getAttribute("data-day-id"), moveButton.getAttribute("data-place-id"), Number(moveButton.getAttribute("data-move-place")));
+      }
+    });
+
+    pEls.dayList.addEventListener("input", function (event) {
+      const field = event.target.closest("[data-field]");
+      if (field) {
+        const card = field.closest(".day-card");
+        const day = card ? getPlanDay(card.getAttribute("data-day-id")) : null;
+        if (!day) return;
+        const name = field.getAttribute("data-field");
+        if (name === "title") {
+          day.title = field.value.slice(0, 120);
+          updateMapHeading(day);
+        } else if (name === "date") {
+          day.date = field.value;
+        } else if (name === "notes") {
+          day.notes = field.value.slice(0, 2000);
+        }
+        scheduleSave();
+        return;
+      }
+      const search = event.target.closest("[data-place-search]");
+      if (search) renderSuggestions(search.closest(".day-card"), search.value);
+    });
+
+    pEls.dayList.addEventListener("change", function (event) {
+      const select = event.target.closest("[data-move-day]");
+      if (!select || !select.value) return;
+      movePlaceToDay(select.getAttribute("data-day-id"), select.getAttribute("data-place-id"), select.value);
+    });
+
+    pEls.dayList.addEventListener("keydown", function (event) {
+      const search = event.target.closest("[data-place-search]");
+      if (!search) return;
+      const card = search.closest(".day-card");
+      const box = card ? card.querySelector(".suggestions") : null;
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (box && box.hidden) renderSuggestions(card, search.value);
+        highlightSuggestion(card, suggestIndex < 0 ? 0 : suggestIndex + 1);
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (box && box.hidden) renderSuggestions(card, search.value);
+        highlightSuggestion(card, suggestIndex < 0 ? -1 : suggestIndex - 1);
+      } else if (event.key === "Enter") {
+        const query = search.value.trim();
+        if (!query || !card) return;
+        event.preventDefault();
+        const items = box && !box.hidden ? Array.from(box.querySelectorAll(".suggestion")) : [];
+        if (items.length) {
+          const chosen = items[suggestIndex >= 0 && suggestIndex < items.length ? suggestIndex : 0];
+          addPlaceToDay(card.getAttribute("data-day-id"), chosen.getAttribute("data-place-option"));
+        } else {
+          const day = getPlanDay(card.getAttribute("data-day-id"));
+          const matches = day ? searchPlaces(query, day) : [];
+          if (matches.length) addPlaceToDay(card.getAttribute("data-day-id"), matches[0].id);
+          else toast('No place found for "' + query + '"');
+        }
+      } else if (event.key === "Escape") {
+        closeSuggestions(card);
+      }
+    });
+
+    pEls.dayList.addEventListener("focusin", function (event) {
+      const card = event.target.closest(".day-card");
+      if (card) selectDay(card.getAttribute("data-day-id"), false);
+      const search = event.target.closest("[data-place-search]");
+      if (search) renderSuggestions(search.closest(".day-card"), search.value);
+    });
+
+    pEls.dayList.addEventListener("focusout", function (event) {
+      const wrap = event.target.closest(".place-search");
+      if (!wrap) return;
+      window.setTimeout(function () {
+        if (!wrap.contains(document.activeElement)) closeSuggestions(wrap);
+      }, 120);
+    });
+
+    pEls.dayList.addEventListener("dragstart", function (event) {
+      const card = event.target.closest(".place-card");
+      if (!card) return;
+      dragOrigin = { dayId: card.getAttribute("data-day-id"), placeId: card.getAttribute("data-place-id") };
+      card.classList.add("dragging");
+      if (event.dataTransfer) {
+        event.dataTransfer.effectAllowed = "move";
+        try { event.dataTransfer.setData("text/plain", dragOrigin.placeId); } catch (err) {}
+      }
+    });
+
+    pEls.dayList.addEventListener("dragover", function (event) {
+      if (!dragOrigin) return;
+      const list = event.target.closest("[data-day-list]");
+      if (!list) return;
+      event.preventDefault();
+      if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+      clearDragOver();
+      list.classList.add("drag-over");
+    });
+
+    pEls.dayList.addEventListener("drop", function (event) {
+      if (!dragOrigin) return;
+      const list = event.target.closest("[data-day-list]");
+      if (!list) return;
+      event.preventDefault();
+      const targetDayId = list.getAttribute("data-day-id");
+      const targetCard = event.target.closest(".place-card");
+      let targetIndex;
+      if (targetCard && targetCard.closest("[data-day-list]") === list) {
+        const cards = Array.from(list.querySelectorAll(".place-card"));
+        const index = cards.indexOf(targetCard);
+        const rect = targetCard.getBoundingClientRect();
+        targetIndex = index + (event.clientY < rect.top + rect.height / 2 ? 0 : 1);
+      } else {
+        const targetDay = getPlanDay(targetDayId);
+        targetIndex = targetDay ? targetDay.places.length : 0;
+      }
+      const origin = dragOrigin;
+      dragOrigin = null;
+      clearDragOver();
+      movePlaceByDrag(origin, targetDayId, targetIndex);
+    });
+
+    pEls.dayList.addEventListener("dragend", function (event) {
+      const card = event.target.closest(".place-card");
+      if (card) card.classList.remove("dragging");
+      dragOrigin = null;
+      clearDragOver();
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest(".place-search")) closeAllSuggestions();
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") {
+        window.clearTimeout(planner.saveTimer);
+        saveNow();
+      }
+    });
+
+    window.addEventListener("beforeunload", function () {
+      window.clearTimeout(planner.saveTimer);
+      saveNow();
+    });
+  }
+
+  function setView(view, options) {
+    const opts = options || {};
+    const plannerMode = view === "planner";
+    pEls.exploreView.hidden = plannerMode;
+    pEls.plannerView.hidden = !plannerMode;
+    document.body.classList.toggle("planner-mode", plannerMode);
+    pEls.viewTabs.forEach(function (tab) {
+      const active = tab.getAttribute("data-view") === view;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    if (plannerMode) {
+      closeDrawer();
+      renderDays();
+      document.title = "Day planner — Wander India";
+      if (opts.focus) pEls.plannerTitle.focus({ preventScroll: true });
+    } else {
+      document.title = "Wander India — Trip Planner";
+    }
+    if (opts.scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function initPlanner() {
+    const loaded = loadPlan();
+    planner.days = loaded.days;
+    planner.activeDayId = loaded.activeDayId;
+    updateSaveNote();
+    wirePlannerEvents();
+    setView(window.location.hash === "#planner" ? "planner" : "explore", { focus: false, scroll: false });
+    renderDays();
+  }
+
+  initPlanner();
 </script>
 </body>
 </html>
